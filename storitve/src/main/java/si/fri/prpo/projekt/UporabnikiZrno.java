@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @ApplicationScoped
-public class UporabnikZrno {
+public class UporabnikiZrno {
 
     @PersistenceContext(unitName = "polnilne-postaje")
     private EntityManager em;
