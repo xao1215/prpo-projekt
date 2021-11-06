@@ -8,25 +8,26 @@ import java.sql.Time;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Termin.getAll", query = "SELECT t FROM termin t"),
-                @NamedQuery(name = "Termin.getAllFromPostaja", query = "SELECT t FROM termin t WHERE t.id_postaja = :postaja"),
-                @NamedQuery(name = "Termin.getAllDay", query = "SELECT t FROM termin t WHERE t.datum = :datum"),
-                @NamedQuery(name = "Termin.getAllDayTime", query = "SELECT t FROM termin t WHERE t.datum = :datum AND ((t.od_ura BETWEEN :od AND :do) OR (t.do_ura BETWEEN :od AND :do)) "),
+                @NamedQuery(name = "Termin.getAllFromPostaja", query = "SELECT t FROM termin t WHERE t.id = :postaja"),
+                @NamedQuery(name = "Termin.getAllDay", query = "SELECT t FROM termin t WHERE t.dan = :dan"),
+                @NamedQuery(name = "Termin.getAllDayTime", query = "SELECT t FROM termin t WHERE t.dan = :dan AND ((t.od_ura BETWEEN :od AND :do) OR (t.do_ura BETWEEN :od AND :do)) "),
         })
 public class Termin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "termin_id")
     private Integer id;
-    private boolean prosto;
+    private Integer prosto;
     private Date dan;
     private Time od_ura;
     private Time do_ura;
 
     @ManyToOne
-    @JoinColumn(name = "id_uporabnik")
+    @JoinColumn(name = "uporabnik_id")
     private Uporabnik uporabnik;
 
-    @OneToOne
-    @JoinColumn(name = "id_postaja")
+    @ManyToOne
+    @JoinColumn(name = "postaja_id")
     private Postaja postaja;
 
     public Integer getId() {
@@ -37,19 +38,19 @@ public class Termin {
         this.id = id;
     }
 
-    public boolean isProsto() {
+    public Integer getProsto() {
         return prosto;
     }
 
-    public void setProsto(boolean prosto) {
+    public void setProsto(Integer prosto) {
         this.prosto = prosto;
     }
 
-    public Date getDatum() {
+    public Date getDan() {
         return dan;
     }
 
-    public void setDatum(Date dan) {
+    public void setDan(Date dan) {
         this.dan = dan;
     }
 
@@ -84,4 +85,5 @@ public class Termin {
     public void setPostaja(Postaja postaja) {
         this.postaja = postaja;
     }
+
 }

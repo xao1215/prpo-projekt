@@ -7,24 +7,25 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Uporabnik.getAll", query = "SELECT u FROM uporabnik u"),
-                @NamedQuery(name = "Uporabnik.getName", query = "SELECT u FROM uporabnik u WHERE u.name = :name"),
+                @NamedQuery(name = "Uporabnik.getName", query = "SELECT u FROM uporabnik u WHERE u.ime = :name"),
                 @NamedQuery(name = "Uporabnik.getId", query = "SELECT u FROM uporabnik u WHERE u.id = :id"),
                 @NamedQuery(name = "Uporabnik.getUsername", query = "SELECT u FROM uporabnik u WHERE u.username  = :username"),
         })
 public class Uporabnik {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "uporabnik_id")
     private Integer id;
     private String ime;
     private String priimek;
     private String username;
     private String email;
+    private String password;
 
-    @OneToMany(mappedBy = "termin")
-    private List<Termin> termin;
+    @OneToMany(mappedBy = "uporabnik")
+    private List<Termin> termini;
 
-    @OneToOne
-    @JoinColumn(name = "id_lastnik")
+    @OneToOne(mappedBy = "lastnik")
     private Postaja postaja;
 
     public Integer getId() {
@@ -68,11 +69,15 @@ public class Uporabnik {
     }
 
     public List<Termin> getTermin() {
-        return termin;
+        return termini;
     }
 
-    public void setTermin(List<Termin> termin) {
-        this.termin = termin;
+    public void setTermin(List<Termin> termini) {
+        this.termini = termini;
+    }
+
+    public String getInfo(){
+        return String.format("%s %s, username = %s, email = %s",this.ime,this.priimek,this.username,this.email);
     }
 
     public Postaja getPostaja() {
@@ -81,5 +86,13 @@ public class Uporabnik {
 
     public void setPostaja(Postaja postaja) {
         this.postaja = postaja;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

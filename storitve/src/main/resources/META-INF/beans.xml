@@ -4,4 +4,3 @@
        bean-discovery-mode="annotated">
 </beans>
 
-<!-- beans_2_0 works, 1_2 currently doesnt, check link -->

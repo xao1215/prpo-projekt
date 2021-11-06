@@ -1,7 +1,6 @@
 package si.fri.prpo.projekt;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 @Entity(name = "postaja")
@@ -10,11 +9,12 @@ import java.util.List;
                 @NamedQuery(name = "Postaja.getAll", query = "SELECT p FROM postaja p"),
                 @NamedQuery(name = "Postaja.getAllLokacija", query = "SELECT p FROM postaja p WHERE p.lokacija = :lokacija"),
                 @NamedQuery(name = "Postaja.getLessThanCena", query = "SELECT p FROM postaja p WHERE p.cena_polnjenja >= :cena ORDER BY p.cena_polnjenja DESC"),
-                @NamedQuery(name = "Postaja.getTermini", query = "SELECT p FROM postaja p WHERE p.id = :postaja"),
+                @NamedQuery(name = "Postaja.getTermini", query = "SELECT p.termini FROM postaja p WHERE p.id = :postaja"),
         })
 public class Postaja {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "postaja_id")
     private Integer id;
     private String ime;
     private String specifikacije;
@@ -22,11 +22,12 @@ public class Postaja {
     private float cena_polnjenja;
     private String obratovalni_cas;
 
-    @OneToOne(mappedBy = "uporabnik")
+    @OneToOne
+    @JoinColumn(name = "uporabnik_id")
     private Uporabnik lastnik;
 
-    @OneToMany(mappedBy = "termin")
-    private List<Termin> termin;
+    @OneToMany(mappedBy = "postaja")
+    private List<Termin> termini;
 
     public Integer getId() {
         return id;
@@ -85,14 +86,11 @@ public class Postaja {
     }
 
     public List<Termin> getTermin() {
-        return termin;
+        return termini;
     }
 
-    public void setTermin(List<Termin> termin) {
-        this.termin = termin;
+    public void setTermin(List<Termin> termini) {
+        this.termini = termini;
     }
-
-
-
 
 }
