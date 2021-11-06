@@ -19,9 +19,10 @@ public class Uporabnik {
     private String priimek;
     private String username;
     private String email;
-    @OneToMany
-    @JoinColumn(name = "id_uporabnik")
+
+    @OneToMany(mappedBy = "termin")
     private List<Termin> termin;
+
     @OneToOne
     @JoinColumn(name = "id_lastnik")
     private Postaja postaja;

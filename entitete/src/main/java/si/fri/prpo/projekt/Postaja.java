@@ -21,11 +21,11 @@ public class Postaja {
     private String lokacija;
     private float cena_polnjenja;
     private String obratovalni_cas;
-    @OneToOne
-    //@JoinColumn(name = "id_lastnik")
+
+    @OneToOne(mappedBy = "uporabnik")
     private Uporabnik lastnik;
-    @OneToMany
-    //@JoinColumn(name = "id_uporabnik")
+
+    @OneToMany(mappedBy = "termin")
     private List<Termin> termin;
 
     public Integer getId() {

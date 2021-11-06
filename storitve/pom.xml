@@ -10,15 +10,27 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>storitve</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>si.fri.prpo.projekt</groupId>
+            <artifactId>entitete</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0.1</version>
+        </dependency>
+    </dependencies>
 
     <properties>
-        <maven.compiler.source>13</maven.compiler.source>
-        <maven.compiler.target>13</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>com.kumuluz.ee</groupId>
                 <artifactId>kumuluzee-jta-narayana</artifactId>
@@ -31,7 +43,6 @@
                 <groupId>com.kumuluz.ee</groupId>
                 <artifactId>kumuluzee-cdi-weld</artifactId>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

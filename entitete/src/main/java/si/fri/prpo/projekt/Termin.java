@@ -20,9 +20,11 @@ public class Termin {
     private Date dan;
     private Time od_ura;
     private Time do_ura;
-    @OneToOne
-    //@JoinColumn(name = "id_uporabnik")
+
+    @ManyToOne
+    @JoinColumn(name = "id_uporabnik")
     private Uporabnik uporabnik;
+
     @OneToOne
     @JoinColumn(name = "id_postaja")
     private Postaja postaja;
