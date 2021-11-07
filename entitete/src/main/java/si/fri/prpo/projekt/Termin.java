@@ -9,7 +9,7 @@ import java.sql.Time;
         {
                 @NamedQuery(name = "Termin.getAll", query = "SELECT t FROM termin t"),
                 @NamedQuery(name = "Termin.getAllFromPostaja", query = "SELECT t FROM termin t WHERE t.id = :postaja"),
-                @NamedQuery(name = "Termin.getAllDay", query = "SELECT t FROM termin t WHERE t.dan = :dan"),
+                @NamedQuery(name = "Termin.getAllFromUporabnik", query = "SELECT t FROM termin t WHERE t.uporabnik.id = :uporabnik"),
                 @NamedQuery(name = "Termin.getAllDayTime", query = "SELECT t FROM termin t WHERE t.dan = :dan AND ((t.od_ura BETWEEN :od AND :do) OR (t.do_ura BETWEEN :od AND :do)) "),
         })
 public class Termin {
