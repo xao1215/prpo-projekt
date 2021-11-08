@@ -17,7 +17,6 @@ public class Termin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "termin_id")
     private Integer id;
-    private Integer prosto;
     private Date dan;
     private Time od_ura;
     private Time do_ura;
@@ -36,14 +35,6 @@ public class Termin {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getProsto() {
-        return prosto;
-    }
-
-    public void setProsto(Integer prosto) {
-        this.prosto = prosto;
     }
 
     public Date getDan() {
