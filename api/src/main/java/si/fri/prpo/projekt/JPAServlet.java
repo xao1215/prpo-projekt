@@ -17,16 +17,45 @@ public class JPAServlet extends HttpServlet {
     @Inject
     private UporabnikiZrno uporabnikiZrno;
 
+    @Inject
+    private TerminiZrno terminiZrno;
+
+    @Inject
+    private PostajeZrno postajeZrno;
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         PrintWriter out = res.getWriter();
 
         List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
-        Uporabnik a = uporabnikiZrno.getUporabnikiById(1);
-        out.println( a.getInfo() );
         for( Uporabnik user : uporabniki ){
             out.println( user.getInfo() );
         }
+        List<Termin> termini = terminiZrno.getTermini();
+        for( Termin t : termini ){
+            out.println( t.getInfo() );
+        }
+        List<Postaja> postaje = postajeZrno.getPostaje();
+        for( Postaja p : postaje ){
+            out.println( p.getInfo() );
+        }
+
+        uporabnikiZrno.deleteUporabnik(1);
+
+        uporabniki = uporabnikiZrno.getUporabniki();
+        for( Uporabnik user : uporabniki ){
+            out.println( user.getInfo() );
+        }
+        termini = terminiZrno.getTermini();
+        for( Termin t : termini ){
+            out.println( t.getInfo() );
+        }
+        postaje = postajeZrno.getPostaje();
+        for( Postaja p : postaje ){
+            out.println( p.getInfo() );
+        }
+
     }
 }

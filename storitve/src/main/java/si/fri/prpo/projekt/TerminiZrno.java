@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -39,6 +40,27 @@ public class TerminiZrno {
     }
     public List<Termin> getTerminiByDayTime(Date dan, Time od_, Time do_) {
         return em.createNamedQuery("Termin.getAllDayTime").setParameter("dan", dan).setParameter("od", od_).setParameter("do", do_).getResultList();
+    }
+
+
+    @Transactional
+    public Termin saveTermin(Termin t) {
+        em.persist(t);
+        return t;
+    }
+
+    @Transactional
+    public Termin updateTermin(Termin t) {
+        em.merge(t);
+        return t;
+    }
+
+    @Transactional
+    public void deleteTermin(Integer id) {
+        Termin old;
+        if ((old = em.find(Termin.class, id)) != null) {
+            em.remove(old);
+        }
     }
 
 

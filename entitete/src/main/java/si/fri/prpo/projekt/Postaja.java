@@ -85,12 +85,15 @@ public class Postaja {
         this.lastnik = lastnik;
     }
 
-    public List<Termin> getTermin() {
+    public List<Termin> getTermini() {
         return termini;
     }
 
-    public void setTermin(List<Termin> termini) {
+    public void setTermini(List<Termin> termini) {
         this.termini = termini;
     }
 
+    public String getInfo(){
+        return String.format("%s %s, username = %s, email = %s",this.ime,this.cena_polnjenja,this.lastnik.getIme(),this.lokacija);
+    }
 }

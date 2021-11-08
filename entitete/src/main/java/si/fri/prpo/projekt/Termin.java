@@ -77,4 +77,7 @@ public class Termin {
         this.postaja = postaja;
     }
 
+    public String getInfo(){
+        return String.format("termin id = %d",this.id);
+    }
 }

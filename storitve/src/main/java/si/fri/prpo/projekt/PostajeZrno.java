@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -37,6 +38,29 @@ public class PostajeZrno {
     }
     public List<Termin> getPostajaTermini(Integer id) {
         return em.createNamedQuery("Postaja.getTermini").setParameter("postaja", id).getResultList();
+    }
+
+    @Transactional
+    public Postaja savePostaja(Postaja p) {
+        em.persist(p);
+        return p;
+    }
+
+    @Transactional
+    public Postaja updatePostaja(Postaja p) {
+        em.merge(p);
+        return p;
+    }
+
+    @Transactional
+    public void deletePostaja(Integer id) {
+        Postaja old;
+        if ((old = em.find(Postaja.class, id)) != null) {
+            for( Termin t : old.getTermini() ){
+                em.remove(t);
+            }
+            em.remove(old);
+        }
     }
 
 }

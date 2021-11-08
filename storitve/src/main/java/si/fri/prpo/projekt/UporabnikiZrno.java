@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -42,9 +43,32 @@ public class UporabnikiZrno {
         return em.createNamedQuery("Uporabnik.getUsername").setParameter("username", username).getResultList();
     }
 
+    @Transactional
+    public Uporabnik saveUporabnik(Uporabnik u) {
+        em.persist(u);
+        return u;
+    }
 
+    @Transactional
+    public Uporabnik updateUporabnik(Uporabnik u) {
+        em.merge(u);
+        return u;
+    }
 
-
+    @Transactional
+    public void deleteUporabnik(Integer id) {
+        Uporabnik old;
+        if ((old = em.find(Uporabnik.class, id)) != null) {
+            Postaja p = old.getPostaja();
+            if( p != null){
+                for( Termin t : p.getTermini() ){
+                    em.remove(t);
+                }
+                em.remove(p);
+            }
+            em.remove(old);
+        }
+    }
 
 
 
