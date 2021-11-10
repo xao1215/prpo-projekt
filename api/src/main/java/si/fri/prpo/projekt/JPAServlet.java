@@ -43,6 +43,7 @@ public class JPAServlet extends HttpServlet {
         }
 
         uporabnikiZrno.deleteUporabnik(1);
+        out.println( "after deletion");
 
         uporabniki = uporabnikiZrno.getUporabniki();
         for( Uporabnik user : uporabniki ){
