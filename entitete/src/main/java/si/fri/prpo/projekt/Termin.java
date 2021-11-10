@@ -17,6 +17,7 @@ public class Termin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "termin_id")
     private Integer id;
+    private Integer oznaka;    // public identifier
     private Date dan;
     private Time od_ura;
     private Time do_ura;
@@ -75,6 +76,14 @@ public class Termin {
 
     public void setPostaja(Postaja postaja) {
         this.postaja = postaja;
+    }
+
+    public Integer getOznaka() {
+        return oznaka;
+    }
+
+    public void setOznaka(Integer oznaka) {
+        this.oznaka = oznaka;
     }
 
     public String getInfo(){

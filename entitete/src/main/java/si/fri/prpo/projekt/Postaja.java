@@ -22,7 +22,7 @@ public class Postaja {
     private float cena_polnjenja;
     private String obratovalni_cas;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "uporabnik_id")
     private Uporabnik lastnik;
 

@@ -3,6 +3,7 @@ package si.fri.prpo.projekt;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -11,23 +12,28 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.UUID;
 
-@ApplicationScoped
+@RequestScoped
 public class UporabnikiZrno {
 
     @PersistenceContext(unitName = "polnilne-postaje")
     private EntityManager em;
 
     private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
+    private UUID identifikator;
 
     @PostConstruct
     public void postConstruct() {
         log.info("inicializacija zrna za uporabnike");
+        identifikator = UUID.randomUUID();
+        log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
     @PreDestroy
     public void preDestroy() {
         log.info("unicenje zrna za uporabnike");
+        log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
     public List<Uporabnik> getUporabniki() {
@@ -59,12 +65,16 @@ public class UporabnikiZrno {
     public void deleteUporabnik(Integer id) {
         Uporabnik old;
         if ((old = em.find(Uporabnik.class, id)) != null) {
-            Postaja p = old.getPostaja();
+            List<Postaja> p = old.getPostaje();
             if( p != null){
-                for( Termin t : p.getTermini() ){
-                    em.remove(t);
+
+                for( Postaja pst : p ){
+                    for( Termin t : pst.getTermini() ){
+                        em.remove(t);
+                    }
+                    em.remove(pst);
                 }
-                em.remove(p);
+
             }
             em.remove(old);
         }

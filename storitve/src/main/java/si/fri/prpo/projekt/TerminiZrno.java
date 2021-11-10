@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -18,15 +19,20 @@ public class TerminiZrno {
     private EntityManager em;
 
     private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
+    private UUID identifikator;
 
     @PostConstruct
     public void postConstruct() {
         log.info("inicializacija zrna za termine");
+        identifikator = UUID.randomUUID();
+        log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
     @PreDestroy
     public void preDestroy() {
         log.info("unicenje zrna za termine");
+        log.info("IDENTIFIKATOR: " + identifikator.toString());
+
     }
 
     public List<Termin> getTermini() {

@@ -8,17 +8,19 @@ import java.sql.Time;
 public class DtoTermin {
 
     private Date dan;
+    private Integer oznaka;
     private Time od_ura;
     private Time do_ura;
     private Integer uporabnik_id;
     private Integer postaja_id;
 
-    public DtoTermin(Date dan, Time od_ura, Time do_ura, Integer uporabnik_id, Integer postaja_id){
+    public DtoTermin(Date dan, Integer oznaka, Time od_ura, Time do_ura, Integer uporabnik_id, Integer postaja_id){
         this.dan = dan;
         this.od_ura = od_ura;
         this.do_ura = do_ura;
         this.uporabnik_id = uporabnik_id;
         this.postaja_id = postaja_id;
+        this.oznaka = oznaka;
     }
 
     public Date getDan() {
@@ -59,5 +61,13 @@ public class DtoTermin {
 
     public void setPostaja_id(Integer postaja_id) {
         this.postaja_id = postaja_id;
+    }
+
+    public Integer getOznaka() {
+        return oznaka;
+    }
+
+    public void setOznaka(Integer oznaka) {
+        this.oznaka = oznaka;
     }
 }

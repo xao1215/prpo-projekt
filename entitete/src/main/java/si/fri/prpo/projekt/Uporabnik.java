@@ -25,8 +25,8 @@ public class Uporabnik {
     @OneToMany(mappedBy = "uporabnik")
     private List<Termin> termini;
 
-    @OneToOne(mappedBy = "lastnik")
-    private Postaja postaja;
+    @OneToMany(mappedBy = "lastnik")
+    private List<Postaja> postaje;
 
     public Integer getId() {
         return id;
@@ -68,24 +68,20 @@ public class Uporabnik {
         this.email = email;
     }
 
-    public List<Termin> getTermin() {
+    public List<Termin> getTermini() {
         return termini;
     }
 
-    public void setTermin(List<Termin> termini) {
+    public void setTermini(List<Termin> termini) {
         this.termini = termini;
     }
 
-    public String getInfo(){
-        return String.format("%s %s, username = %s, email = %s",this.ime,this.priimek,this.username,this.email);
+    public List<Postaja> getPostaje() {
+        return postaje;
     }
 
-    public Postaja getPostaja() {
-        return postaja;
-    }
-
-    public void setPostaja(Postaja postaja) {
-        this.postaja = postaja;
+    public void setPostaje(List<Postaja> postaje) {
+        this.postaje = postaje;
     }
 
     public String getPassword() {
@@ -94,5 +90,9 @@ public class Uporabnik {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getInfo(){
+        return String.format("%s %s, username = %s, email = %s",this.ime,this.priimek,this.username,this.email);
     }
 }
