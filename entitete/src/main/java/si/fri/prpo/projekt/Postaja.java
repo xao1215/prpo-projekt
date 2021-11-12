@@ -94,6 +94,6 @@ public class Postaja {
     }
 
     public String getInfo(){
-        return String.format("%s %f %s, lastnik : username = %s",this.ime,this.cena_polnjenja,this.lokacija,this.lastnik.getIme());
+        return String.format("id = %d,%s %f %s, lastnik : username = %s",this.id,this.ime,this.cena_polnjenja,this.lokacija,this.lastnik.getIme());
     }
 }

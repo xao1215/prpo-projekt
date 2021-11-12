@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class UpravljanjeUporabnikovZrno {
 
-
     @PersistenceContext(unitName = "polnilne-postaje")
     private EntityManager em;
 
@@ -31,8 +30,7 @@ public class UpravljanjeUporabnikovZrno {
         log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
-    // CHECK if oznaka v ustvari termin je, ure 30 - 1 hr
-    // MAX 2 TERMINA NA DAN, vsi po 30 min, so max 60 min
-    //
+    // 30 / 60 min
+    // MAX 2 TERMINA
 
 }

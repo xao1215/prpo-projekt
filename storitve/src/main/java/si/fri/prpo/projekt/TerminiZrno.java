@@ -38,11 +38,11 @@ public class TerminiZrno {
     public List<Termin> getTermini() {
         return em.createNamedQuery("Termin.getAll").getResultList();
     }
-    public List<Termin> getTerminiByPostaja(Integer id) {
-        return em.createNamedQuery("Termin.getAllFromPostaja").setParameter("postaja", id).getResultList();
+    public Termin getTerminById(Integer id) {
+        return (Termin) em.createNamedQuery("Termin.getId").setParameter("id", id).getResultList().get(0);
     }
-    public List<Termin> getTerminiByUporabnik(Integer id) {
-        return em.createNamedQuery("Termin.getAllFromUporabnik").setParameter("uporabnik", id).getResultList();
+    public Uporabnik getUporabnikOfTermin(Integer id) {
+        return (Uporabnik) em.createNamedQuery("Termin.getUporabnik").setParameter("uporabniktermina", id).getResultList().get(0);
     }
     public List<Termin> getTerminiByDayTime(Date dan, Time od_, Time do_) {
         return em.createNamedQuery("Termin.getAllDayTime").setParameter("dan", dan).setParameter("od", od_).setParameter("do", do_).getResultList();

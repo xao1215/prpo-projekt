@@ -93,6 +93,6 @@ public class Uporabnik {
     }
 
     public String getInfo(){
-        return String.format("%s %s, username = %s, email = %s",this.ime,this.priimek,this.username,this.email);
+        return String.format("id = %d, %s %s, username = %s, email = %s",this.id,this.ime,this.priimek,this.username,this.email);
     }
 }

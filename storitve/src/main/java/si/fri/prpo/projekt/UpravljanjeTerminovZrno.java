@@ -6,8 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -26,6 +24,9 @@ public class UpravljanjeTerminovZrno{
 
     @Inject
     private TerminiZrno terminiZrno;
+
+    @Inject
+    private UporabnikiZrno uporabnikiZrno;
 
     @PostConstruct
     public void postConstruct() {
@@ -55,10 +56,25 @@ public class UpravljanjeTerminovZrno{
         return null;
     }
 
-    public Termin spremeniUporabnikaTermina( DtoTermin termin ){
-
-        // ce uporabnik null -> set id, ce uporabnik !null, check if dto.id = termin.uporabnik.id, if not dont chagne
-        return new Termin();
+    public Termin spremeniUporabnikaTermina( Integer termin, Integer uporabnik ){
+        Termin t = terminiZrno.getTerminById( termin );
+        Uporabnik u = uporabnikiZrno.getUporabnikiById( uporabnik );
+        if( t.getUporabnik() == null ){
+            if( u != null){
+                t.setUporabnik( u );
+                return terminiZrno.updateTermin( t );
+            }
+            log.info("uporabnik ne obstaja");
+        }else{
+            if(t.getUporabnik().getId() != uporabnik){
+                log.info("termin je zaseden");
+            }else{
+                // isti uporabnik
+                t.setUporabnik(null);
+                return terminiZrno.updateTermin( t );
+            }
+        }
+        return null;
     }
 
     public boolean checkIfValid( DtoTermin termin ){
@@ -71,7 +87,5 @@ public class UpravljanjeTerminovZrno{
         }
         return false;
     }
-
-
 
 }

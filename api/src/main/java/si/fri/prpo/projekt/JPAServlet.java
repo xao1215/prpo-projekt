@@ -40,16 +40,9 @@ public class JPAServlet extends HttpServlet {
         printaj( out );
 
         uporabnikiZrno.deleteUporabnik(1);
-
-        out.println();
-        out.println( "after deletion");
-        out.println();
-
+        out.println( "\nafter deletion\n");
         printaj(out);
 
-        out.println();
-        out.println( "after insertion");
-        out.println();
 
         List<Postaja> postaje = postajeZrno.getPostaje();
         List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
@@ -57,14 +50,24 @@ public class JPAServlet extends HttpServlet {
         DtoTermin novtermin = new DtoTermin(Date.valueOf("2020-12-1"), new Time(1,0,0), new Time(2,0,0),-1, postaje.get(0).getId());
         utp.dodajTermin( novtermin );
         utp.dodajTermin( novtermin );
-
+        out.println( "\nafter insertion termin\n");
         printaj(out);
 
-        out.println();
-        out.println( "after insertion postaja");
-        out.println();
-        upp.dodajPostajo( new DtoPostaja("wow","omg","mlaka",4,"vikend",uporabniki.get(0).getId()));
 
+        upp.dodajPostajo( new DtoPostaja("wow","omg","mlaka",4,"vikend",uporabniki.get(0).getId()));
+        out.println( "\nafter insertion postaja\n");
+        printaj(out);
+
+        utp.spremeniUporabnikaTermina(3,2);
+        out.println( "\nafter change user of termin\n");
+        printaj(out);
+
+        utp.spremeniUporabnikaTermina(3,3);
+        out.println( "\nafter change user of termin, but zasedeno\n");
+        printaj(out);
+
+        utp.spremeniUporabnikaTermina(3,2);
+        out.println( "\nafter change user of termin ( same user )\n");
         printaj(out);
 
     }
@@ -75,11 +78,16 @@ public class JPAServlet extends HttpServlet {
         }
         List<Termin> termini = terminiZrno.getTermini();
         for( Termin t : termini ){
-            out.println( t.getInfo() );
+            Uporabnik temp = null;
+            if(t.getUporabnik() != null){
+                temp = terminiZrno.getUporabnikOfTermin( t.getUporabnik().getId() );
+            }
+            out.println( t.getInfo() + " uporabnik --> " + (temp == null ? "/" : temp.getId()));
         }
         List<Postaja> postaje = postajeZrno.getPostaje();
         for( Postaja p : postaje ){
             out.println( p.getInfo() );
         }
+
     }
 }

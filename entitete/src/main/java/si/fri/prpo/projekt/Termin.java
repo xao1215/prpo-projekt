@@ -8,8 +8,8 @@ import java.sql.Time;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Termin.getAll", query = "SELECT t FROM termin t"),
-                @NamedQuery(name = "Termin.getAllFromPostaja", query = "SELECT t FROM termin t WHERE t.id = :postaja"),
-                @NamedQuery(name = "Termin.getAllFromUporabnik", query = "SELECT t FROM termin t WHERE t.uporabnik.id = :uporabnik"),
+                @NamedQuery(name = "Termin.getId", query = "SELECT t FROM termin t WHERE t.id = :id"),
+                @NamedQuery(name = "Termin.getUporabnik", query = "SELECT u FROM uporabnik u WHERE u.id = :uporabniktermina"),
                 @NamedQuery(name = "Termin.getAllDayTime", query = "SELECT t FROM termin t WHERE t.dan = :dan AND ((t.od_ura BETWEEN :od AND :do) OR (t.do_ura BETWEEN :od AND :do)) "),
                 @NamedQuery(name = "Termin.getExactDayTime", query = "SELECT t FROM termin t WHERE t.postaja.id = :postaja AND t.dan = :dan AND ((t.od_ura = :od) AND (t.do_ura = :do)) "),
         })
