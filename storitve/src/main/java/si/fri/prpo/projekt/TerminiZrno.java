@@ -47,6 +47,11 @@ public class TerminiZrno {
     public List<Termin> getTerminiByDayTime(Date dan, Time od_, Time do_) {
         return em.createNamedQuery("Termin.getAllDayTime").setParameter("dan", dan).setParameter("od", od_).setParameter("do", do_).getResultList();
     }
+    public Termin getTerminByExactDayTime(Integer id, Date dan, Time od_, Time do_) {
+        List <Termin> l =  em.createNamedQuery("Termin.getExactDayTime").setParameter("postaja", id).setParameter("dan", dan).setParameter("od", od_).setParameter("do", do_).getResultList();
+        if( l.size() == 0 ){return null;}
+        return l.get(0);
+    }
 
 
     @Transactional

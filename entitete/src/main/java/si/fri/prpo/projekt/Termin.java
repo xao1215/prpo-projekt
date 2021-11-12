@@ -11,13 +11,13 @@ import java.sql.Time;
                 @NamedQuery(name = "Termin.getAllFromPostaja", query = "SELECT t FROM termin t WHERE t.id = :postaja"),
                 @NamedQuery(name = "Termin.getAllFromUporabnik", query = "SELECT t FROM termin t WHERE t.uporabnik.id = :uporabnik"),
                 @NamedQuery(name = "Termin.getAllDayTime", query = "SELECT t FROM termin t WHERE t.dan = :dan AND ((t.od_ura BETWEEN :od AND :do) OR (t.do_ura BETWEEN :od AND :do)) "),
+                @NamedQuery(name = "Termin.getExactDayTime", query = "SELECT t FROM termin t WHERE t.postaja.id = :postaja AND t.dan = :dan AND ((t.od_ura = :od) AND (t.do_ura = :do)) "),
         })
 public class Termin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "termin_id")
     private Integer id;
-    private Integer oznaka;    // public identifier
     private Date dan;
     private Time od_ura;
     private Time do_ura;
@@ -78,15 +78,7 @@ public class Termin {
         this.postaja = postaja;
     }
 
-    public Integer getOznaka() {
-        return oznaka;
-    }
-
-    public void setOznaka(Integer oznaka) {
-        this.oznaka = oznaka;
-    }
-
     public String getInfo(){
-        return String.format("termin id = %d",this.id);
+        return String.format("termin id = %d, dan = %s, od = %s, do = %s, postaja_id = %d",this.id,this.dan.toString(),this.od_ura.toString(),this.do_ura.toString(), postaja.getId());
     }
 }

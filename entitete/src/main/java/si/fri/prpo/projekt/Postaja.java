@@ -9,7 +9,7 @@ import java.util.List;
                 @NamedQuery(name = "Postaja.getAll", query = "SELECT p FROM postaja p"),
                 @NamedQuery(name = "Postaja.getAllLokacija", query = "SELECT p FROM postaja p WHERE p.lokacija = :lokacija"),
                 @NamedQuery(name = "Postaja.getLessThanCena", query = "SELECT p FROM postaja p WHERE p.cena_polnjenja >= :cena ORDER BY p.cena_polnjenja DESC"),
-                @NamedQuery(name = "Postaja.getTermini", query = "SELECT p.termini FROM postaja p WHERE p.id = :postaja"),
+                @NamedQuery(name = "Postaja.getId", query = "SELECT p FROM postaja p WHERE p.id = :postaja"),
         })
 public class Postaja {
     @Id
@@ -94,6 +94,6 @@ public class Postaja {
     }
 
     public String getInfo(){
-        return String.format("%s %s, username = %s, email = %s",this.ime,this.cena_polnjenja,this.lastnik.getIme(),this.lokacija);
+        return String.format("%s %f %s, lastnik : username = %s",this.ime,this.cena_polnjenja,this.lokacija,this.lastnik.getIme());
     }
 }

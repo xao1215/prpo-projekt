@@ -42,8 +42,8 @@ public class PostajeZrno {
     public List<Postaja> getPostajeByCena(float cena) {
         return em.createNamedQuery("Postaja.getLessThanCena").setParameter("cena", cena).getResultList();
     }
-    public List<Termin> getPostajaTermini(Integer id) {
-        return em.createNamedQuery("Postaja.getTermini").setParameter("postaja", id).getResultList();
+    public Postaja getPostajaById(Integer id) {
+        return (Postaja) em.createNamedQuery("Postaja.getId").setParameter("postaja", id).getResultList().get(0);
     }
 
     @Transactional

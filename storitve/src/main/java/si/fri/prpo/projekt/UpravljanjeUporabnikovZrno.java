@@ -31,12 +31,8 @@ public class UpravljanjeUporabnikovZrno {
         log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
-    // na splosno, ne neceseraly za tukaj
-    // nastavi uporabnika kot lastnika( dodaj postajo ),
-    // dodaj termin za postajo / zbrisi termin / spremeni termin,,,, dodaj termin uporabniku / remove termin za uporabnika
-    // preveri kasna polja? username? email? dates? ura? date?
-
-    // dodaj postajo , dodaj termin postaji ( ce si lastnik postsaje), dodaj termin uporabniku
-    // CHECK if oznaka v ustvari termin je
+    // CHECK if oznaka v ustvari termin je, ure 30 - 1 hr
+    // MAX 2 TERMINA NA DAN, vsi po 30 min, so max 60 min
+    //
 
 }
