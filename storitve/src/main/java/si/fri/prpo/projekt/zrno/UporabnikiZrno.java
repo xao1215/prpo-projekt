@@ -1,8 +1,11 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.zrno;
+
+import si.fri.prpo.projekt.Postaja;
+import si.fri.prpo.projekt.Termin;
+import si.fri.prpo.projekt.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,5 +1,6 @@
 package si.fri.prpo.projekt;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Uporabnik {
     @OneToMany(mappedBy = "uporabnik")
     private List<Termin> termini;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "lastnik")
     private List<Postaja> postaje;
 

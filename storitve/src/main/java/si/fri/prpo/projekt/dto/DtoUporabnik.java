@@ -1,4 +1,4 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.dto;
 
 public class DtoUporabnik {
     private String ime;

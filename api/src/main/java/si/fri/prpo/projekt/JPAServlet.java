@@ -1,5 +1,9 @@
 package si.fri.prpo.projekt;
 
+import si.fri.prpo.projekt.dto.DtoPostaja;
+import si.fri.prpo.projekt.dto.DtoTermin;
+import si.fri.prpo.projekt.zrno.*;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

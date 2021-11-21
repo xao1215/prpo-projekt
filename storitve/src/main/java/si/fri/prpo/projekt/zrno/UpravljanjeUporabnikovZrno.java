@@ -1,4 +1,4 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.zrno;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

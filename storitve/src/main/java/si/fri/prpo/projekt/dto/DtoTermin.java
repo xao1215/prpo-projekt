@@ -1,4 +1,4 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.dto;
 
 import java.sql.Date;
 import java.sql.Time;

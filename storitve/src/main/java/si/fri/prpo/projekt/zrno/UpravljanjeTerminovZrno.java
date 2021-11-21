@@ -1,4 +1,8 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.zrno;
+
+import si.fri.prpo.projekt.Termin;
+import si.fri.prpo.projekt.Uporabnik;
+import si.fri.prpo.projekt.dto.DtoTermin;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -41,7 +45,7 @@ public class UpravljanjeTerminovZrno{
         log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
-    public Termin dodajTermin( DtoTermin termin ){
+    public Termin dodajTermin(DtoTermin termin ){
         Termin nov = new Termin();
         if( checkIfValid(termin) && terminiZrno.getTerminByExactDayTime( termin.getPostaja_id(), termin.getDan(), termin.getOd_ura(), termin.getDo_ura() ) == null ){
            // nov.setOznaka( termin.getOznaka() );

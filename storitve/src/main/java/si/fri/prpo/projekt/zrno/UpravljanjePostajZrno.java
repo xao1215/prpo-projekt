@@ -1,4 +1,8 @@
-package si.fri.prpo.projekt;
+package si.fri.prpo.projekt.zrno;
+
+import si.fri.prpo.projekt.Postaja;
+import si.fri.prpo.projekt.Uporabnik;
+import si.fri.prpo.projekt.dto.DtoPostaja;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -38,7 +42,7 @@ public class UpravljanjePostajZrno {
     }
 
 
-    public Postaja dodajPostajo( DtoPostaja postaja ){
+    public Postaja dodajPostajo(DtoPostaja postaja ){
         Postaja nova = new Postaja();
 
         boolean valid = true;
