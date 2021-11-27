@@ -3,6 +3,7 @@ package si.fri.prpo.projekt.zrno;
 import si.fri.prpo.projekt.Postaja;
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
+import si.fri.prpo.projekt.anotacija.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.UUID;
 
+@BeleziKlice
 @ApplicationScoped
 public class UporabnikiZrno {
 
@@ -52,6 +54,7 @@ public class UporabnikiZrno {
     public List<Uporabnik> getUporabnikiByUsername(String username) {
         return em.createNamedQuery("Uporabnik.getUsername").setParameter("username", username).getResultList();
     }
+
 
     @Transactional
     public Uporabnik saveUporabnik(Uporabnik u) {

@@ -2,6 +2,7 @@ package si.fri.prpo.projekt.zrno;
 
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
+import si.fri.prpo.projekt.anotacija.BeleziKlice;
 import si.fri.prpo.projekt.dto.DtoTermin;
 
 import javax.annotation.PostConstruct;
@@ -85,18 +86,18 @@ public class UpravljanjeTerminovZrno{
 
     public boolean checkIfValid( DtoTermin termin ){
         if(termin.getDan() != null && termin.getDo_ura() != null && termin.getOd_ura() != null /*&& termin.getOznaka() != null*/ && postajeZrno.getPostajaById(termin.getPostaja_id()) != null){
-            System.out.println("valid");
+
 
             LocalTime doo = LocalTime.parse( termin.getDo_ura().toString() );
             LocalTime odd = LocalTime.parse( termin.getOd_ura().toString() );
             System.out.println( odd.toString() + doo.toString() );
 
             if(odd.isBefore(doo)){
-                System.out.println("valid");
+
                 return true;
             }
         }
-        System.out.println("not valid");
+
         return false;
     }
 

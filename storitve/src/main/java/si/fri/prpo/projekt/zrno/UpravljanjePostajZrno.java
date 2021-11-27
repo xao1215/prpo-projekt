@@ -2,6 +2,7 @@ package si.fri.prpo.projekt.zrno;
 
 import si.fri.prpo.projekt.Postaja;
 import si.fri.prpo.projekt.Uporabnik;
+import si.fri.prpo.projekt.anotacija.BeleziKlice;
 import si.fri.prpo.projekt.dto.DtoPostaja;
 
 import javax.annotation.PostConstruct;

@@ -2,6 +2,7 @@ package si.fri.prpo.projekt.zrno;
 
 import si.fri.prpo.projekt.Postaja;
 import si.fri.prpo.projekt.Termin;
+import si.fri.prpo.projekt.anotacija.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+@BeleziKlice
 @ApplicationScoped
 public class PostajeZrno {
 
