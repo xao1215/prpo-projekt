@@ -60,21 +60,23 @@ public class UpravljanjeTerminovZrno{
         return null;
     }
 
-    public Termin spremeniUporabnikaTermina( Integer termin, Integer uporabnik ){
-        Termin t = terminiZrno.getTerminById( termin );
-        Uporabnik u = uporabnikiZrno.getUporabnikiById( uporabnik );
+    public Termin spremeniUporabnikaTermina( DtoTermin termin, Integer termin_id ){
+        Termin t = terminiZrno.getTerminById( termin_id );
+        Uporabnik u = uporabnikiZrno.getUporabnikiById( termin.getUporabnik_id() );
         if( t.getUporabnik() == null ){
             if( u != null){
                 t.setUporabnik( u );
+                //System.out.println( u.getInfo() );
                 return terminiZrno.updateTermin( t );
             }
             log.info("uporabnik ne obstaja");
         }else{
-            if(t.getUporabnik().getId() != uporabnik){
+            if(t.getUporabnik().getId() != termin.getUporabnik_id()){
                 log.info("termin je zaseden");
             }else{
                 // isti uporabnik
                 t.setUporabnik(null);
+                //System.out.println("ok wow");
                 return terminiZrno.updateTermin( t );
             }
         }
@@ -83,12 +85,18 @@ public class UpravljanjeTerminovZrno{
 
     public boolean checkIfValid( DtoTermin termin ){
         if(termin.getDan() != null && termin.getDo_ura() != null && termin.getOd_ura() != null /*&& termin.getOznaka() != null*/ && postajeZrno.getPostajaById(termin.getPostaja_id()) != null){
+            System.out.println("valid");
+
             LocalTime doo = LocalTime.parse( termin.getDo_ura().toString() );
             LocalTime odd = LocalTime.parse( termin.getOd_ura().toString() );
+            System.out.println( odd.toString() + doo.toString() );
+
             if(odd.isBefore(doo)){
+                System.out.println("valid");
                 return true;
             }
         }
+        System.out.println("not valid");
         return false;
     }
 

@@ -51,26 +51,40 @@ public class JPAServlet extends HttpServlet {
         List<Postaja> postaje = postajeZrno.getPostaje();
         List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
 
-        DtoTermin novtermin = new DtoTermin(Date.valueOf("2020-12-1"), new Time(1,0,0), new Time(2,0,0),-1, postaje.get(0).getId());
-        utp.dodajTermin( novtermin );
+        DtoTermin novtermin = new DtoTermin();
+        novtermin.setDan(Date.valueOf("2020-12-1"));
+        novtermin.setOd_ura(new Time(1,0,0));
+        novtermin.setDo_ura(new Time(2,0,0));
+        novtermin.setPostaja_id( postaje.get(0).getId() );
+        novtermin.setUporabnik_id(-1);
+        //utp.dodajTermin( novtermin );
         utp.dodajTermin( novtermin );
         out.println( "\nafter insertion termin\n");
         printaj(out);
 
-
-        upp.dodajPostajo( new DtoPostaja("wow","omg","mlaka",4,"vikend",uporabniki.get(0).getId()));
+        DtoPostaja dp = new DtoPostaja();
+        dp.setIme("wow");
+        dp.setCena_polnjenja(10);
+        dp.setLokacija("NY");
+        dp.setSpecifikacije("owfeowifj");
+        //dp.setLastnik_id(uporabniki.get(0).getId());
+        dp.setLastnik_id(2);
+        upp.dodajPostajo( dp );
         out.println( "\nafter insertion postaja\n");
         printaj(out);
 
-        utp.spremeniUporabnikaTermina(3,2);
+        novtermin.setUporabnik_id(2);
+        utp.spremeniUporabnikaTermina(novtermin,2);
         out.println( "\nafter change user of termin\n");
         printaj(out);
 
-        utp.spremeniUporabnikaTermina(3,3);
+        novtermin.setUporabnik_id(3);
+        utp.spremeniUporabnikaTermina(novtermin,2);
         out.println( "\nafter change user of termin, but zasedeno\n");
         printaj(out);
 
-        utp.spremeniUporabnikaTermina(3,2);
+        novtermin.setUporabnik_id(2);
+        utp.spremeniUporabnikaTermina(novtermin,2);
         out.println( "\nafter change user of termin ( same user )\n");
         printaj(out);
 

@@ -23,6 +23,7 @@ public class Uporabnik {
     private String email;
     private String password;
 
+
     @OneToMany(mappedBy = "uporabnik")
     private List<Termin> termini;
 

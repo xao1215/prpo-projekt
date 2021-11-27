@@ -11,14 +11,6 @@ public class DtoTermin {
     private Integer uporabnik_id;
     private Integer postaja_id;
 
-    public DtoTermin(Date dan, Time od_ura, Time do_ura, Integer uporabnik_id, Integer postaja_id){
-        this.dan = dan;
-        this.od_ura = od_ura;
-        this.do_ura = do_ura;
-        this.uporabnik_id = uporabnik_id;
-        this.postaja_id = postaja_id;
-    }
-
     public Date getDan() {
         return dan;
     }

@@ -6,6 +6,7 @@ import si.fri.prpo.projekt.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.UUID;
 
-@RequestScoped
+@ApplicationScoped
 public class UporabnikiZrno {
 
     @PersistenceContext(unitName = "polnilne-postaje")

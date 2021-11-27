@@ -1,7 +1,9 @@
 package si.fri.prpo.projekt.api.v1;
 
 import si.fri.prpo.projekt.Postaja;
+import si.fri.prpo.projekt.dto.DtoPostaja;
 import si.fri.prpo.projekt.zrno.PostajeZrno;
+import si.fri.prpo.projekt.zrno.UpravljanjePostajZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,6 +20,9 @@ public class PostajeVir {
 
     @Inject
     private PostajeZrno postajeZrno;
+
+    @Inject
+    private UpravljanjePostajZrno upz;
 
     @GET
     public Response vrniPostaje(){
@@ -40,8 +45,13 @@ public class PostajeVir {
     }
 
     @POST
-    public Response ustvariPostajo(Postaja p){
-        return Response.status(Response.Status.OK).entity( postajeZrno.savePostaja(p) ).build();
+    public Response ustvariPostajo(DtoPostaja p){
+        Postaja nov = upz.dodajPostajo( p );
+        if( nov == null){
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }else{
+            return Response.status(Response.Status.OK).entity(nov).build();
+        }
     }
 
     @PUT

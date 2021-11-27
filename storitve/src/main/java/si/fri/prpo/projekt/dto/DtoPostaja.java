@@ -1,5 +1,6 @@
 package si.fri.prpo.projekt.dto;
 
+
 import java.util.List;
 
 public class DtoPostaja {
@@ -11,14 +12,14 @@ public class DtoPostaja {
     private String obratovalni_cas;
     private Integer lastnik_id;
 
-    public DtoPostaja(String ime, String specifikacije, String lokacija, float cena_polnjenja, String obratovalni_cas, Integer lastnik_id){
+    /*public DtoPostaja(String ime, String specifikacije, String lokacija, float cena_polnjenja, String obratovalni_cas, Integer lastnik_id){
         this.ime = ime;
         this.specifikacije = specifikacije;
         this.lokacija = lokacija;
         this.cena_polnjenja = cena_polnjenja;
         this.obratovalni_cas = obratovalni_cas;
         this.lastnik_id = lastnik_id;
-    }
+    }*/
     public String getIme() {
         return ime;
     }

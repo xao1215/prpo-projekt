@@ -65,8 +65,7 @@ public class TerminiZrno {
 
     @Transactional
     public Termin updateTermin(Termin t) {
-        em.merge(t);
-        return t;
+        return em.merge(t);
     }
 
     @Transactional
