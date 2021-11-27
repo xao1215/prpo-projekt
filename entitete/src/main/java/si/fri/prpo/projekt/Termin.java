@@ -82,6 +82,6 @@ public class Termin {
     }
 
     public String getInfo(){
-        return String.format("termin id = %d, dan = %s, od = %s, do = %s, postaja_id = %d",this.id,this.dan.toString(),this.od_ura.toString(),this.do_ura.toString(), postaja.getId());
+        return String.format("termin id = %d, dan = %s, od = %s, do = %s",this.id,this.dan.toString(),this.od_ura.toString(),this.do_ura.toString());
     }
 }

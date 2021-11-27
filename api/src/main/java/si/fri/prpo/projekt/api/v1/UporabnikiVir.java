@@ -32,6 +32,24 @@ public class UporabnikiVir {
         return Response.status(Response.Status.OK).entity( uporabnik ).build();
     }
 
+    @DELETE
+    @Path("{id}")
+    public Response zbrisiUporabnika( @PathParam("id") Integer id){
+        uporabnikiZrno.deleteUporabnik((id));
+        return Response.status(Response.Status.OK).build();
+    }
+
+    @POST
+    public Response ustvariUporabnika(Uporabnik uporabnik){
+        return Response.status(Response.Status.OK).entity( uporabnikiZrno.saveUporabnik(uporabnik) ).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response posodobiUporabnika( Uporabnik uporabnik, @PathParam("id") Integer id ){
+        uporabnik.setId( id );
+        return Response.status(Response.Status.OK).entity( uporabnikiZrno.updateUporabnik(( uporabnik )) ).build();
+    }
 
 
 }
