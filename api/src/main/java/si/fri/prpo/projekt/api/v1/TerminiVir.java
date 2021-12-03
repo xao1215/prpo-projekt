@@ -3,7 +3,15 @@ package si.fri.prpo.projekt.api.v1;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.jetty.util.StringUtil;
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.projekt.Termin;
+import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.dto.DtoTermin;
 import si.fri.prpo.projekt.zrno.TerminiZrno;
 import si.fri.prpo.projekt.zrno.UpravljanjeTerminovZrno;
@@ -35,6 +43,13 @@ public class TerminiVir {
     private UpravljanjeTerminovZrno utz;
 
     @GET
+    @Operation(summary = "Pridobi termine", description = "Vrne termine na voljo.")
+    @APIResponses({
+            @APIResponse(description = "Termini vrnjeni",
+                    responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Termin.class)),
+                    headers = @Header(name = "X-Total-Count", description = "Pojasni koliko je vseh terminov v bazi", schema = @Schema(type = SchemaType.NUMBER)))
+    })
     public Response vrniTermine(){
         //List<Termin> termini = terminiZrno.getTermini();
 
@@ -44,6 +59,11 @@ public class TerminiVir {
     }
 
     @GET
+    @Operation(summary = "Pridobi termin", description = "Vrne termin.")
+    @APIResponses({
+            @APIResponse(description = "Termin pridobljen", responseCode = "200", content = @Content(schema = @Schema(implementation = Termin.class))),
+            @APIResponse(description = "Termin ne obstaja", responseCode = "404")
+    })
     @Path("{id}")
     public Response vrniTermin( @PathParam("id") Integer id){
         Termin t = terminiZrno.getTerminById( id );
@@ -51,6 +71,11 @@ public class TerminiVir {
     }
 
     @DELETE
+    @Operation(summary = "Zbrisi termin", description = "Zbrise termin.")
+    @APIResponses({
+            @APIResponse(description = "Termin zbrisan", responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Termin.class))),
+    })
     @Path("{id}")
     public Response zbrisiTermin( @PathParam("id") Integer id){
         terminiZrno.deleteTermin((id));
@@ -58,6 +83,12 @@ public class TerminiVir {
     }
 
     @POST
+    @Operation(summary = "Ustvari termin", description = "Ustvari termin")
+    @APIResponses({
+            @APIResponse(description = "Termin uspesno ustvarjen", responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Uporabnik.class))),
+            @APIResponse(description = "Napaka pri dodajanju termina, neustrezni podatki", responseCode = "406")
+    })
     public Response ustvariTermin(String s){
 
         //System.out.println(nov.getDan().toString() + nov.getDo_ura().toString());
@@ -68,15 +99,15 @@ public class TerminiVir {
         }else{
             return Response.status(Response.Status.OK).entity(t).build();
         }
-        /*{
-            "dan": "2000-01-05",
-                "od_ura": "23:00:00",
-                "do_ura": "23:01:00",
-                "postaja_id": 2
-        }*/
     }
 
     @PUT
+    @Operation(summary = "Posodobi uporabnika termina", description = "Posodobi uporabnika termina")
+    @APIResponses({
+            @APIResponse(description = "Uspesno posodobljen uporabnik termina", responseCode = "200",
+                    content = @Content(schema = @Schema(implementation = Termin.class))),
+            @APIResponse(description = "Napaka pri posodabljanju termina, neustrezni podatki", responseCode = "406")
+    })
     @Path("{id}")
     public Response posodobiUporabnikaTermina( String s, @PathParam("id") Integer id ){
         Termin nov = utz.spremeniUporabnikaTermina( deserializeDto(s), id );

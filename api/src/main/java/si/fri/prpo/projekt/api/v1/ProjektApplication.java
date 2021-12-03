@@ -13,3 +13,6 @@ import javax.ws.rs.core.MediaType;
 @ApplicationScoped
 public class ProjektApplication extends Application {
 }
+
+// /openapi
+// /api-specs/ui
