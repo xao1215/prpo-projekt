@@ -1,5 +1,7 @@
 package si.fri.prpo.projekt.zrno;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.anotacija.BeleziKlice;
@@ -40,8 +42,10 @@ public class TerminiZrno {
 
     }
 
-    public List<Termin> getTermini() {
-        return em.createNamedQuery("Termin.getAll").getResultList();
+    public List<Termin> getTermini(QueryParameters query) {
+        //return em.createNamedQuery("Termin.getAll").getResultList();
+        List<Termin> termini = JPAUtils.queryEntities(em, Termin.class, query);
+        return termini;
     }
     public Termin getTerminById(Integer id) {
         return (Termin) em.createNamedQuery("Termin.getId").setParameter("id", id).getResultList().get(0);
@@ -58,6 +62,9 @@ public class TerminiZrno {
         return l.get(0);
     }
 
+    public Long getCount(QueryParameters query){
+        return JPAUtils.queryEntitiesCount(em, Termin.class, query);
+    }
 
     @Transactional
     public Termin saveTermin(Termin t) {

@@ -1,6 +1,7 @@
 package si.fri.prpo.projekt.api.v1;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.jetty.util.StringUtil;
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.dto.DtoTermin;
@@ -10,8 +11,10 @@ import si.fri.prpo.projekt.zrno.UpravljanjeTerminovZrno;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -22,6 +25,9 @@ import java.util.List;
 @ApplicationScoped
 public class TerminiVir {
 
+    @Context
+    protected UriInfo uriInfo;
+
     @Inject
     private TerminiZrno terminiZrno;
 
@@ -30,8 +36,11 @@ public class TerminiVir {
 
     @GET
     public Response vrniTermine(){
-        List<Termin> termini = terminiZrno.getTermini();
-        return Response.status(Response.Status.OK).entity( termini ).build();
+        //List<Termin> termini = terminiZrno.getTermini();
+
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<Termin> termini = terminiZrno.getTermini(query);
+        return Response.status(Response.Status.OK).header("X-Total-Count", terminiZrno.getCount(query)).entity( termini ).build();
     }
 
     @GET

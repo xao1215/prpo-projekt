@@ -1,5 +1,6 @@
 package si.fri.prpo.projekt;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.projekt.dto.DtoPostaja;
 import si.fri.prpo.projekt.dto.DtoTermin;
 import si.fri.prpo.projekt.zrno.*;
@@ -48,8 +49,8 @@ public class JPAServlet extends HttpServlet {
         printaj(out);
 
 
-        List<Postaja> postaje = postajeZrno.getPostaje();
-        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
+        List<Postaja> postaje = postajeZrno.getPostaje(new QueryParameters());
+        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki( new QueryParameters() );
 
         DtoTermin novtermin = new DtoTermin();
         novtermin.setDan(Date.valueOf("2020-12-1"));
@@ -90,11 +91,11 @@ public class JPAServlet extends HttpServlet {
 
     }
     public void printaj( PrintWriter out ){
-        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();
+        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki( new QueryParameters() );
         for( Uporabnik user : uporabniki ){
             out.println( user.getInfo() );
         }
-        List<Termin> termini = terminiZrno.getTermini();
+        List<Termin> termini = terminiZrno.getTermini(new QueryParameters());
         for( Termin t : termini ){
             Uporabnik temp = null;
             if(t.getUporabnik() != null){
@@ -102,7 +103,7 @@ public class JPAServlet extends HttpServlet {
             }
             out.println( t.getInfo() + " uporabnik --> " + (temp == null ? "/" : temp.getId()));
         }
-        List<Postaja> postaje = postajeZrno.getPostaje();
+        List<Postaja> postaje = postajeZrno.getPostaje(new QueryParameters());
         for( Postaja p : postaje ){
             out.println( p.getInfo() );
         }

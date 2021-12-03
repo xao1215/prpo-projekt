@@ -1,13 +1,16 @@
 package si.fri.prpo.projekt.api.v1;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.zrno.UporabnikiZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("uporabniki")
@@ -16,13 +19,19 @@ import java.util.List;
 @ApplicationScoped
 public class UporabnikiVir {
 
+    @Context
+    protected UriInfo uriInfo;
+
     @Inject
     private UporabnikiZrno uporabnikiZrno;
 
     @GET
     public Response vrniUporabnike(){
-        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki();// pridobi uporabnike
-        return Response.status(Response.Status.OK).entity( uporabniki ).build();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        //List<Uporabnik> uporabniki = uporabnikiZrno.pridobiUporabnike(query);
+
+        List<Uporabnik> uporabniki = uporabnikiZrno.getUporabniki(query);// pridobi uporabnike
+        return Response.status(Response.Status.OK).header("X-Total-Count", uporabnikiZrno.getCount(query)).entity( uporabniki ).build();
     }
 
     @GET

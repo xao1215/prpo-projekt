@@ -1,5 +1,7 @@
 package si.fri.prpo.projekt.zrno;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.projekt.Postaja;
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
@@ -42,8 +44,10 @@ public class UporabnikiZrno {
         log.info("IDENTIFIKATOR: " + identifikator.toString());
     }
 
-    public List<Uporabnik> getUporabniki() {
-        return em.createNamedQuery("Uporabnik.getAll").getResultList();
+    public List<Uporabnik> getUporabniki( QueryParameters query ) {
+        List<Uporabnik> uporabniki = JPAUtils.queryEntities(em, Uporabnik.class, query);
+        return uporabniki;
+        //return em.createNamedQuery("Uporabnik.getAll").getResultList();
     }
     public Uporabnik getUporabnikiById(Integer id) {
         return (Uporabnik) em.createNamedQuery("Uporabnik.getId").setParameter("id", id).getResultList().get(0);
@@ -53,6 +57,10 @@ public class UporabnikiZrno {
     }
     public List<Uporabnik> getUporabnikiByUsername(String username) {
         return em.createNamedQuery("Uporabnik.getUsername").setParameter("username", username).getResultList();
+    }
+
+    public Long getCount(QueryParameters query){
+        return JPAUtils.queryEntitiesCount(em, Uporabnik.class, query);
     }
 
 

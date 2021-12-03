@@ -1,7 +1,10 @@
 package si.fri.prpo.projekt.zrno;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.projekt.Postaja;
 import si.fri.prpo.projekt.Termin;
+import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.anotacija.BeleziKlice;
 
 import javax.annotation.PostConstruct;
@@ -38,8 +41,10 @@ public class PostajeZrno {
 
     }
 
-    public List<Postaja> getPostaje() {
-        return em.createNamedQuery("Postaja.getAll").getResultList();
+    public List<Postaja> getPostaje(QueryParameters query) {
+        List<Postaja> postaje = JPAUtils.queryEntities(em, Postaja.class, query);
+        return postaje;
+        //return em.createNamedQuery("Postaja.getAll").getResultList();
     }
     public List<Postaja> getPostajeByLokacija(String lokacija) {
         return em.createNamedQuery("Postaja.getAllLokacija").setParameter("lokacija", lokacija).getResultList();
@@ -49,6 +54,10 @@ public class PostajeZrno {
     }
     public Postaja getPostajaById(Integer id) {
         return (Postaja) em.createNamedQuery("Postaja.getId").setParameter("postaja", id).getResultList().get(0);
+    }
+
+    public Long getCount(QueryParameters query){
+        return JPAUtils.queryEntitiesCount(em, Postaja.class, query);
     }
 
     @Transactional
