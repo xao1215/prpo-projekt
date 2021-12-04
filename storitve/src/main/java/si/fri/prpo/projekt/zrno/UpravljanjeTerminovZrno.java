@@ -4,6 +4,7 @@ import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.anotacija.BeleziKlice;
 import si.fri.prpo.projekt.dto.DtoTermin;
+import si.fri.prpo.projekt.izjema.NeveljavenDtoTerminIzjema;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -58,7 +59,8 @@ public class UpravljanjeTerminovZrno{
             return terminiZrno.saveTermin( nov );
         }
         log.info("napaka pri dodajanju termina");
-        return null;
+        throw new NeveljavenDtoTerminIzjema("napaka pri dodajanju termina, neveljaven vnos");
+        //return null;
     }
 
     public Termin spremeniUporabnikaTermina( DtoTermin termin, Integer termin_id ){
@@ -71,9 +73,11 @@ public class UpravljanjeTerminovZrno{
                 return terminiZrno.updateTermin( t );
             }
             log.info("uporabnik ne obstaja");
+            //throw new NeveljavenDtoTerminIzjema("napaka pri spremembi uporabnika termina, uporabnik ne obstaja");
         }else{
             if(t.getUporabnik().getId() != termin.getUporabnik_id()){
                 log.info("termin je zaseden");
+                //throw new NeveljavenDtoTerminIzjema("napaka pri spremembi uporabnika termina, termin je ze zaseden");
             }else{
                 // isti uporabnik
                 t.setUporabnik(null);

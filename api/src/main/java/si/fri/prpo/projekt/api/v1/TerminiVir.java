@@ -86,7 +86,7 @@ public class TerminiVir {
     @Operation(summary = "Ustvari termin", description = "Ustvari termin")
     @APIResponses({
             @APIResponse(description = "Termin uspesno ustvarjen", responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = Uporabnik.class))),
+                    content = @Content(schema = @Schema(implementation = DtoTermin.class))),
             @APIResponse(description = "Napaka pri dodajanju termina, neustrezni podatki", responseCode = "406")
     })
     public Response ustvariTermin(String s){
@@ -105,7 +105,7 @@ public class TerminiVir {
     @Operation(summary = "Posodobi uporabnika termina", description = "Posodobi uporabnika termina")
     @APIResponses({
             @APIResponse(description = "Uspesno posodobljen uporabnik termina", responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = Termin.class))),
+                    content = @Content(schema = @Schema(implementation = DtoTermin.class))),
             @APIResponse(description = "Napaka pri posodabljanju termina, neustrezni podatki", responseCode = "406")
     })
     @Path("{id}")

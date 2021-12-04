@@ -83,7 +83,7 @@ public class PostajeVir {
     @Operation(summary = "Ustvari postajo", description = "Ustvari postajo")
     @APIResponses({
             @APIResponse(description = "Postaja ustvarjena", responseCode = "200",
-                    content = @Content(schema = @Schema(implementation = Postaja.class))),
+                    content = @Content(schema = @Schema(implementation = DtoPostaja.class))),
             @APIResponse(description = "Napaka pri posodabljanju termina, neustrezni podatki", responseCode = "406")
     })
     public Response ustvariPostajo(DtoPostaja p){

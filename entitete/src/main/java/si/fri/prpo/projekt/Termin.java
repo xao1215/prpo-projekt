@@ -23,6 +23,7 @@ public class Termin {
     private Time od_ura;
     private Time do_ura;
 
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "uporabnik_id")
     private Uporabnik uporabnik;
