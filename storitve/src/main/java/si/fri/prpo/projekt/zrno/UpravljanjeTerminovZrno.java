@@ -50,7 +50,6 @@ public class UpravljanjeTerminovZrno{
     public Termin dodajTermin(DtoTermin termin ){
         Termin nov = new Termin();
         if( checkIfValid(termin) && terminiZrno.getTerminByExactDayTime( termin.getPostaja_id(), termin.getDan(), termin.getOd_ura(), termin.getDo_ura() ) == null ){
-           // nov.setOznaka( termin.getOznaka() );
             nov.setDan( termin.getDan() );
             nov.setOd_ura( termin.getOd_ura() );
             nov.setDo_ura( termin.getDo_ura() );
@@ -58,7 +57,6 @@ public class UpravljanjeTerminovZrno{
 
             return terminiZrno.saveTermin( nov );
         }
-        log.info("napaka pri dodajanju termina");
         throw new NeveljavenDtoTerminIzjema("napaka pri dodajanju termina, neveljaven vnos");
         //return null;
     }
@@ -69,7 +67,6 @@ public class UpravljanjeTerminovZrno{
         if( t.getUporabnik() == null ){
             if( u != null){
                 t.setUporabnik( u );
-                //System.out.println( u.getInfo() );
                 return terminiZrno.updateTermin( t );
             }
             log.info("uporabnik ne obstaja");
@@ -81,7 +78,6 @@ public class UpravljanjeTerminovZrno{
             }else{
                 // isti uporabnik
                 t.setUporabnik(null);
-                //System.out.println("ok wow");
                 return terminiZrno.updateTermin( t );
             }
         }
