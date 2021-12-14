@@ -110,26 +110,15 @@ public class TerminiVir {
     })
     @Path("{id}")
     public Response posodobiUporabnikaTermina( String s, @PathParam("id") Integer id ){
-        Termin nov = utz.spremeniUporabnikaTermina( deserializeDto(s), id );
-        //System.out.println( nov.getUporabnik() == null ? "null" : "ni nul" );
+        DtoTermin t = deserializeDto(s);
+        Termin nov = utz.spremeniUporabnikaTermina( t, id );
         if( nov == null){
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }else{
             return Response.status(Response.Status.OK).entity(nov).build();
         }
         //nov.setId( id );
-        //return Response.status(Response.Status.OK).entity( terminiZrno.updateTermin(( nov )) ).build();
     }
-
-    /*
-    @PUT
-    @Path("{id}")
-    public Response posodobiTermin( String s, @PathParam("id") Integer id ){
-        Termin nov = deserialize(s);
-
-        nov.setId( id );
-        return Response.status(Response.Status.OK).entity( terminiZrno.updateTermin(( nov )) ).build();
-    }*/
 
     public Termin deserialize( String s ){
         s = s.substring(s.indexOf(":") + 2);

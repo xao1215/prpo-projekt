@@ -9,6 +9,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 import org.eclipse.microprofile.openapi.annotations.servers.Server;
 
+import javax.annotation.security.DeclareRoles;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 @SecurityScheme(securitySchemeName = "openid-connect",
         type = SecuritySchemeType.OPENIDCONNECT,
         openIdConnectUrl = "http://auth-server-url/.well-known/openid-configuration")
+@DeclareRoles({"user", "admin"})
 @ApplicationPath("v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

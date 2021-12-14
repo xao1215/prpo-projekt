@@ -1,9 +1,11 @@
 package si.fri.prpo.projekt.zrno;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import si.fri.prpo.projekt.Termin;
 import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.anotacija.BeleziKlice;
 import si.fri.prpo.projekt.dto.DtoTermin;
+import si.fri.prpo.projekt.dto.DtoZasedenost;
 import si.fri.prpo.projekt.izjema.NeveljavenDtoTerminIzjema;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +14,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 import java.time.LocalTime;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -24,6 +30,8 @@ public class UpravljanjeTerminovZrno{
 
     private Logger log = Logger.getLogger(UporabnikiZrno.class.getName());
     private UUID identifikator;
+    private Client httpClient;
+    private String baseUrl;
 
     @Inject
     private PostajeZrno postajeZrno;
@@ -39,6 +47,9 @@ public class UpravljanjeTerminovZrno{
         log.info("inicializacija zrna za upravljanje terminov");
         identifikator = UUID.randomUUID();
         log.info("IDENTIFIKATOR: " + identifikator.toString());
+
+        httpClient = ClientBuilder.newClient();
+        baseUrl = ConfigurationUtil.getInstance().get("integrations.zasedenost.base-url").get();
     }
 
     @PreDestroy
@@ -67,6 +78,7 @@ public class UpravljanjeTerminovZrno{
         if( t.getUporabnik() == null ){
             if( u != null){
                 t.setUporabnik( u );
+                posodobiZasedenost(t, "dodaj");
                 return terminiZrno.updateTermin( t );
             }
             log.info("uporabnik ne obstaja");
@@ -78,6 +90,7 @@ public class UpravljanjeTerminovZrno{
             }else{
                 // isti uporabnik
                 t.setUporabnik(null);
+                posodobiZasedenost(t, "odstrani");
                 return terminiZrno.updateTermin( t );
             }
         }
@@ -87,18 +100,31 @@ public class UpravljanjeTerminovZrno{
     public boolean checkIfValid( DtoTermin termin ){
         if(termin.getDan() != null && termin.getDo_ura() != null && termin.getOd_ura() != null /*&& termin.getOznaka() != null*/ && postajeZrno.getPostajaById(termin.getPostaja_id()) != null){
 
-
             LocalTime doo = LocalTime.parse( termin.getDo_ura().toString() );
             LocalTime odd = LocalTime.parse( termin.getOd_ura().toString() );
             System.out.println( odd.toString() + doo.toString() );
 
             if(odd.isBefore(doo)){
-
                 return true;
             }
         }
 
         return false;
+    }
+
+    public void posodobiZasedenost(Termin termin, String nacin){
+        DtoZasedenost zasedenost = new DtoZasedenost();
+        zasedenost.setPostaja_id( termin.getPostaja().getId() );
+        zasedenost.setDan( termin.getDan().getDay() );
+        zasedenost.setDo_ura( termin.getDo_ura().getHours() );
+        zasedenost.setOd_ura( termin.getOd_ura().getHours() );
+
+        try{
+            httpClient.target(baseUrl + "/zasedenost/" + nacin).request(MediaType.APPLICATION_JSON).post(Entity.json(zasedenost));
+        }catch(Exception e){
+            log.info("napaka pri posodabljanju zasedenosti, nacin: " + nacin);
+            log.info(e.getMessage());
+        }
     }
 
 }

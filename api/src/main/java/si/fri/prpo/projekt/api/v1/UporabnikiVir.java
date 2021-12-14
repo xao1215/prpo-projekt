@@ -1,6 +1,7 @@
 package si.fri.prpo.projekt.api.v1;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.security.annotations.Secure;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -11,6 +12,8 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.projekt.Uporabnik;
 import si.fri.prpo.projekt.zrno.UporabnikiZrno;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -24,6 +27,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
+@Secure
 public class UporabnikiVir {
 
     @Context
@@ -33,6 +37,7 @@ public class UporabnikiVir {
     private UporabnikiZrno uporabnikiZrno;
 
     @GET
+    @RolesAllowed("user")
     @Operation(summary = "Pridobi uporabnike", description = "Vrne uporabnike aplikacije.")
     @APIResponses({
             @APIResponse(description = "Uporabniki vrnjeni",
@@ -49,6 +54,7 @@ public class UporabnikiVir {
     }
 
     @GET
+    @RolesAllowed("user")
     @Operation(summary = "Pridobi uporabnika", description = "Vrne uporabnika.")
     @APIResponses({
             @APIResponse(description = "Uporabnik vrnjen", responseCode = "200", content = @Content(schema = @Schema(implementation = Uporabnik.class))),
@@ -61,6 +67,7 @@ public class UporabnikiVir {
     }
 
     @DELETE
+    @RolesAllowed("admin")
     @Operation(summary = "Zbrisi uporabnika", description = "Zbrise uporabnika.")
     @APIResponses({
             @APIResponse(description = "Uporabnik zbrisan", responseCode = "200",
