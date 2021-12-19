@@ -66,7 +66,7 @@ public class JPAServlet extends HttpServlet {
         DtoPostaja dp = new DtoPostaja();
         dp.setIme("wow");
         dp.setCena_polnjenja(10);
-        dp.setLokacija("NY");
+        dp.setLokacija("Maribor");
         dp.setSpecifikacije("owfeowifj");
         //dp.setLastnik_id(uporabniki.get(0).getId());
         dp.setLastnik_id(2);

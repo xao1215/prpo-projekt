@@ -18,6 +18,9 @@ import si.fri.prpo.projekt.zrno.UpravljanjePostajZrno;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -38,6 +41,9 @@ public class PostajeVir {
 
     @Inject
     private UpravljanjePostajZrno upz;
+
+    private Client httpClient = ClientBuilder.newClient();
+
 
     @GET
     @Operation(summary = "Pridobi postaje", description = "Vrne vse postaje aplikacije.")
@@ -65,6 +71,32 @@ public class PostajeVir {
     public Response vrniPostajo( @PathParam("id") Integer id){
         Postaja p = postajeZrno.getPostajaById( id );
         return Response.status(Response.Status.OK).entity( p ).build();
+    }
+
+    @GET
+    @Path("{id}/vreme")
+    public Response vrniVremePostaje( @PathParam("id") Integer id){
+        Postaja p = postajeZrno.getPostajaById( id );
+        if(p == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        String lokacija = p.getLokacija();
+        System.out.println(lokacija);
+
+        try{
+            String s = httpClient
+                    .target("https://yahoo-weather5.p.rapidapi.com/weather?location=" + lokacija + "%2C%20sl&format=json&u=c")
+                    .request(MediaType.APPLICATION_JSON)
+                    .header("content-type","application/x-www-form-urlencoded")
+                    .header("x-rapidapi-host", "yahoo-weather5.p.rapidapi.com")
+                    .header("x-rapidapi-key", "ff5a083a0bmshaddfc955076f0a9p16bddejsnb6a1befd22b7")
+                    .get(String.class);
+            return Response.status(Response.Status.OK).entity(s).build();
+        }catch(Exception e){
+            System.out.println("napaka");
+            return Response.status(Response.Status.NOT_FOUND).entity( p ).build();
+        }
     }
 
     @DELETE
