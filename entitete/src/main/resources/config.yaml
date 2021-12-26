@@ -6,8 +6,21 @@ kumuluzee:
   datasources:
     - jndi-name: jdbc/PolnilnePostaje
       connection-url: jdbc:postgresql://localhost:5432/projekt
+      #connection-url: jdbc:postgresql://host.docker.internal:5432/projekt
       username: postgres
       password: postgres
+  health:
+    checks:
+      data-source-health-check:
+        jndi-name: jdbc/PolnilnePostaje
+        type: both
+      http-health-check:
+        - connection-url: http://localhost:8080/v1/postaje
+          type: both
+        - connection-url: http://localhost:8080/v1/uporabniki
+          type: both
+        - connection-url: http://localhost:8080/v1/termini
+          type: both
   dev:
     scan-libraries:
       - entitete
@@ -24,4 +37,9 @@ kumuluzee:
       }'
 integrations:
   zasedenost:
-    base-url: http://localhost:8081/v1
+    #base-url: http://localhost:8081/v1
+    #base-url: http://host.docker.internal:8081/v1
+    base-url: http://20.85.130.45:8081/v1
+  vir:
+    x-rapidapi-host: yahoo-weather5.p.rapidapi.com
+    x-rapidapi-key: ff5a083a0bmshaddfc955076f0a9p16bddejsnb6a1befd22b7

@@ -1,5 +1,6 @@
 package si.fri.prpo.projekt.api.v1;
 
+import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
@@ -89,8 +90,8 @@ public class PostajeVir {
                     .target("https://yahoo-weather5.p.rapidapi.com/weather?location=" + lokacija + "%2C%20sl&format=json&u=c")
                     .request(MediaType.APPLICATION_JSON)
                     .header("content-type","application/x-www-form-urlencoded")
-                    .header("x-rapidapi-host", "yahoo-weather5.p.rapidapi.com")
-                    .header("x-rapidapi-key", "ff5a083a0bmshaddfc955076f0a9p16bddejsnb6a1befd22b7")
+                    .header("x-rapidapi-host", ConfigurationUtil.getInstance().get("integrations.vir.x-rapidapi-host").get())
+                    .header("x-rapidapi-key", ConfigurationUtil.getInstance().get("integrations.vir.x-rapidapi-key").get())
                     .get(String.class);
             return Response.status(Response.Status.OK).entity(s).build();
         }catch(Exception e){

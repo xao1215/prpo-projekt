@@ -27,6 +27,7 @@
         <kumuluzee-config-mp.velrsion>1.4.0</kumuluzee-config-mp.velrsion>
         <kumuluzee-security.version>1.2.0</kumuluzee-security.version>
         <keycloak.version>15.0.2</keycloak.version>
+        <kumuluzee-health.version>2.4.3</kumuluzee-health.version>
     </properties>
 
     <dependencyManagement>

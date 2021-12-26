@@ -27,7 +27,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
-@Secure
 public class UporabnikiVir {
 
     @Context
@@ -37,7 +36,6 @@ public class UporabnikiVir {
     private UporabnikiZrno uporabnikiZrno;
 
     @GET
-    @RolesAllowed("user")
     @Operation(summary = "Pridobi uporabnike", description = "Vrne uporabnike aplikacije.")
     @APIResponses({
             @APIResponse(description = "Uporabniki vrnjeni",
@@ -54,7 +52,6 @@ public class UporabnikiVir {
     }
 
     @GET
-    @RolesAllowed("user")
     @Operation(summary = "Pridobi uporabnika", description = "Vrne uporabnika.")
     @APIResponses({
             @APIResponse(description = "Uporabnik vrnjen", responseCode = "200", content = @Content(schema = @Schema(implementation = Uporabnik.class))),
@@ -67,7 +64,6 @@ public class UporabnikiVir {
     }
 
     @DELETE
-    @RolesAllowed("admin")
     @Operation(summary = "Zbrisi uporabnika", description = "Zbrise uporabnika.")
     @APIResponses({
             @APIResponse(description = "Uporabnik zbrisan", responseCode = "200",
