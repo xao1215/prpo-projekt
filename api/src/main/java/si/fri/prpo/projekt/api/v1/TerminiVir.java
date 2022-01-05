@@ -1,6 +1,7 @@
 package si.fri.prpo.projekt.api.v1;
 
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.jetty.util.StringUtil;
 import org.eclipse.microprofile.openapi.annotations.Operation;
@@ -31,6 +32,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class TerminiVir {
 
     @Context
@@ -77,6 +79,7 @@ public class TerminiVir {
                     content = @Content(schema = @Schema(implementation = Termin.class))),
     })
     @Path("{id}")
+    @CrossOrigin()
     public Response zbrisiTermin( @PathParam("id") Integer id){
         terminiZrno.deleteTermin((id));
         return Response.status(Response.Status.OK).build();
@@ -110,6 +113,7 @@ public class TerminiVir {
     })
     @Path("{id}")
     public Response posodobiUporabnikaTermina( String s, @PathParam("id") Integer id ){
+        System.out.println(s);
         DtoTermin t = deserializeDto(s);
         Termin nov = utz.spremeniUporabnikaTermina( t, id );
         if( nov == null){

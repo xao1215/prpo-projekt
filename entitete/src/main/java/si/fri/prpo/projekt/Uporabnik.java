@@ -23,7 +23,7 @@ public class Uporabnik {
     private String email;
     private String password;
 
-
+    @JsonbTransient
     @OneToMany(mappedBy = "uporabnik")
     private List<Termin> termini;
 

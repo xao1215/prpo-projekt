@@ -1,5 +1,6 @@
 package si.fri.prpo.projekt.api.v1;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
@@ -35,6 +36,7 @@ import javax.ws.rs.core.MediaType;
                         url = "http://www.apache.org/licenses/LICENSE-2.0")),
         servers = @Server(url = "http://localhost:8080"),
         security = @SecurityRequirement(name = "openid-connect"))
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE, HEAD, OPTIONS")
 public class ProjektApplication extends Application {
 }
 
